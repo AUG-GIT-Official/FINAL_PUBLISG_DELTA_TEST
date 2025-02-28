@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="QUIZ_BEE_CHALLENGE.css">
+    <link rel="icon" href="LOGO_THREE_STEM_SOCIETY.png">
+    <title>Quiz Bee Game</title>
+</head>
+<body>
+
+<section class="SECTION_ONE">  
+
+<div class="SECTION_ONE_INTRODUCTORY">
+<h1>
+    INSTRUCTION
+</h1>
+
+<P>
+    Select the correct answer for each question. You have 3 lives to complete the quiz. If you choose the wrong answer or run out of time, you will lose a life. Once all your lives are gone, the quiz will end. Good luck!
+</P>
+
+<a href="STEM_SOC_QUIZ.html">GO BACK</a>
+</div>
+
+<div class="quiz-container">
+    <div id="quiz" style="display: none;"> <!-- Hidden initially -->
+        <div id="lives" class="lives">Lives: 3</div>
+        <div id="timer" class="timer">Time: 20</div>
+        <div id="question" class="question">Press Start to Begin</div>
+        <div id="answers" class="answers"></div>
+    </div>
+    <button id="startBtn" class="start-btn">Start</button> <!-- Start Button Visible -->
+    <div id="gameOver" class="game-over" style="display: none;">Game Over! Refresh to play again.</div>
+</div>
+
+</section>
+
+ <!-------------------------------------FOOTER-------------------------------------------->
+
+ <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+           <h2>  <i class="fa-regular fa-address-book"></i> Contact Us</h2>
+            <p><b>Location:</b> Governor Pack Road, Baguio City, 2600 Benguet, Philippines</p>
+            <p><b>Number:</b> (074) 442 3316</p>
+        </div>
+        <div class="footer-section">
+            <h2> <i class="fa-regular fa-heart"></i> Social Media</h2>
+            <p><b>Facebook Pages:</b></p>
+            <ul>
+                <li><a href="https://www.facebook.com/UCjaguars" target="_blank">University of the Cordilleras Main</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100095333422873" target="_blank">University of the Cordilleras Integrated School</a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=100086652038016" target="_blank">University of the Cordilleras STEM Society</a></li>
+                
+                <li><h4>Discord Account:</h4> <a href="https://discord.com/invite/WzKjsMNJTz?fbclid=IwZXh0bgNhZW0CMTEAAR16hWnkV-CPPQCbIBbPKtt9RWL0oVXKhPO3S7PaAE1qZAYDvkvOYpNemH4_aem_YkEnVghO2UHNHANBrTw0vQ" target="_blank">STEM Society Discord</a>
+                </li>
+
+                <li><h4>Instagram: </h4><a href="https://www.instagram.com/katangkay_society/?utm_source=ig_web_button_share_sheet" target="_blank">Katangkay Society</a></li>
+                
+            </ul>
+            
+        </div>
+        <div class="footer-section">
+            <h2><i class="fa-regular fa-envelope"></i> Email Addresses</h2>
+            <ul>
+                <li><a href="email@uc-bcf.edu.ph">University of the Cordilleras Email address</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 University of the Cordilleras Integrated School STEM Society. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const quizData = [
+    { 
+        question: "What is the SI unit of force?", 
+        options: ["Joule", "Newton", "Watt", "Pascal"], 
+        correct: 1 
+    },
+    { 
+        question: "Which of the following Newton’s Laws states that an object at rest stays at rest unless acted upon by an external force?", 
+        options: ["First Law", "Second Law", "Third Law", "Law of Gravitation"], 
+        correct: 0 
+    },
+    { 
+        question: "What is the acceleration due to gravity on Earth?", 
+        options: ["9.8 m/s²", "10 m/s²", "8.5 m/s²", "9.2 m/s²"], 
+        correct: 0 
+    },
+    { 
+        question: "Which quantity is a measure of an object’s resistance to changes in motion?", 
+        options: ["Velocity", "Acceleration", "Mass", "Momentum"], 
+        correct: 2 
+    },
+    { 
+        question: "What type of energy is stored in a stretched spring?", 
+        options: ["Kinetic Energy", "Potential Energy", "Thermal Energy", "Chemical Energy"], 
+        correct: 1 
+    },
+    { 
+        question: "Which force opposes the motion of objects through air?", 
+        options: ["Friction", "Gravity", "Air Resistance", "Tension"], 
+        correct: 2 
+    },
+    { 
+        question: "What law states that for every action, there is an equal and opposite reaction?", 
+        options: ["Newton’s First Law", "Newton’s Second Law", "Newton’s Third Law", "Law of Conservation of Energy"], 
+        correct: 2 
+    },
+    { 
+        question: "What is the momentum of a 2 kg object moving at 3 m/s?", 
+        options: ["3 kg·m/s", "6 kg·m/s", "9 kg·m/s", "12 kg·m/s"], 
+        correct: 1 
+    },
+    { 
+        question: "What type of wave does not require a medium to propagate?", 
+        options: ["Sound wave", "Seismic wave", "Electromagnetic wave", "Water wave"], 
+        correct: 2 
+    },
+    { 
+        question: "What is the SI unit of power?", 
+        options: ["Newton", "Joule", "Watt", "Pascal"], 
+        correct: 2 
+    },
+    { 
+        question: "Which of the following is an example of a scalar quantity?", 
+        options: ["Velocity", "Force", "Acceleration", "Temperature"], 
+        correct: 3 
+    },
+    { 
+        question: "What happens to the frequency of a wave when its wavelength increases, assuming speed remains constant?", 
+        options: ["Increases", "Decreases", "Remains the same", "Becomes zero"], 
+        correct: 1 
+    },
+    { 
+        question: "Which color of visible light has the shortest wavelength?", 
+        options: ["Red", "Blue", "Green", "Violet"], 
+        correct: 3 
+    },
+    { 
+        question: "What is the term for the bending of light as it passes from one medium to another?", 
+        options: ["Reflection", "Diffraction", "Refraction", "Dispersion"], 
+        correct: 2 
+    },
+    { 
+        question: "Which of the following devices converts electrical energy into mechanical energy?", 
+        options: ["Battery", "Motor", "Generator", "Transformer"], 
+        correct: 1 
+    },
+    { 
+        question: "Which of the following is an example of an insulator?", 
+        options: ["Copper", "Gold", "Rubber", "Aluminum"], 
+        correct: 2 
+    },
+    { 
+        question: "What is the term for the total energy stored in an object due to its position and motion?", 
+        options: ["Potential Energy", "Kinetic Energy", "Mechanical Energy", "Thermal Energy"], 
+        correct: 2 
+    },
+    { 
+        question: "What type of circuit has only one path for the current to flow?", 
+        options: ["Series Circuit", "Parallel Circuit", "Short Circuit", "Open Circuit"], 
+        correct: 0 
+    },
+    { 
+        question: "What happens to the resistance of a wire if its length is doubled while keeping the same material and thickness?", 
+        options: ["Doubles", "Halves", "Remains the same", "Becomes zero"], 
+        correct: 0 
+    },
+    { 
+        question: "Which subatomic particle has a positive charge?", 
+        options: ["Electron", "Proton", "Neutron", "Photon"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the unit of electric charge?", 
+        options: ["Volt", "Ohm", "Coulomb", "Joule"], 
+        correct: 2 
+    },
+    { 
+        question: "Which planet has the strongest gravitational pull in our solar system?", 
+        options: ["Earth", "Jupiter", "Mars", "Venus"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the term for the force that opposes the motion of objects through a fluid?", 
+        options: ["Friction", "Gravity", "Air Resistance", "Tension"], 
+        correct: 2 
+    },
+    { 
+        question: "Which of the following is NOT a type of electromagnetic wave?", 
+        options: ["Radio Waves", "Sound Waves", "X-Rays", "Gamma Rays"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the speed of light in a vacuum?", 
+        options: ["3.0 × 10⁶ m/s", "3.0 × 10⁷ m/s", "3.0 × 10^8 m/s", "3.0 × 10^9 m/s"], 
+        correct: 2 
+    },
+    { 
+        question: "What force keeps planets in orbit around the Sun?", 
+        options: ["Electromagnetic Force", "Strong Nuclear Force", "Gravity", "Centrifugal Force"], 
+        correct: 2 
+    },
+    { 
+        question: "What is the process by which heat is transferred through direct contact?", 
+        options: ["Radiation", "Conduction", "Convection", "Evaporation"], 
+        correct: 1 
+    },
+    { 
+        question: "Which law states that pressure applied to a confined fluid is transmitted undiminished in all directions?", 
+        options: ["Pascal’s Law", "Archimedes’ Principle", "Boyle’s Law", "Newton’s First Law"], 
+        correct: 0 
+    },
+    { 
+        question: "What is the phenomenon where light bounces off a surface?", 
+        options: ["Refraction", "Diffraction", "Reflection", "Polarization"], 
+        correct: 2 
+    },
+    { 
+        question: "Which type of mirror always forms a virtual, upright, and reduced image?", 
+        options: ["Concave Mirror", "Convex Mirror", "Plane Mirror", "Parabolic Mirror"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the fundamental force responsible for holding atomic nuclei together?", 
+        options: ["Gravitational Force", "Electromagnetic Force", "Strong Nuclear Force", "Weak Nuclear Force"], 
+        correct: 2 
+    },
+
+
+    
+    { 
+        question: "What is the speed of light in a vacuum?", 
+        options: ["3.0 × 10⁶ m/s", "3.0 × 10⁷ m/s", "3.0 × 10⁸ m/s", "3.0 × 10⁹ m/s"], 
+        correct: 2 
+    },
+    { 
+        question: "What force keeps planets in orbit around the Sun?", 
+        options: ["Electromagnetic Force", "Strong Nuclear Force", "Gravity", "Centrifugal Force"], 
+        correct: 2 
+    },
+    { 
+        question: "What is the process by which heat is transferred through direct contact?", 
+        options: ["Radiation", "Conduction", "Convection", "Evaporation"], 
+        correct: 1 
+    },
+    { 
+        question: "Which law states that pressure applied to a confined fluid is transmitted undiminished in all directions?", 
+        options: ["Pascal’s Law", "Archimedes’ Principle", "Boyle’s Law", "Newton’s First Law"], 
+        correct: 0 
+    },
+    { 
+        question: "What is the phenomenon where light bounces off a surface?", 
+        options: ["Refraction", "Diffraction", "Reflection", "Polarization"], 
+        correct: 2 
+    },
+    { 
+        question: "Which type of mirror always forms a virtual, upright, and reduced image?", 
+        options: ["Concave Mirror", "Convex Mirror", "Plane Mirror", "Parabolic Mirror"], 
+        correct: 1 
+    },
+    { 
+        question: "What is the fundamental force responsible for holding atomic nuclei together?", 
+        options: ["Gravitational Force", "Electromagnetic Force", "Strong Nuclear Force", "Weak Nuclear Force"], 
+        correct: 2 
+    },
+    { 
+        question: "Which gas law states that the pressure of a gas is inversely proportional to its volume at constant temperature?", 
+        options: ["Charles’s Law", "Boyle’s Law", "Avogadro’s Law", "Gay-Lussac’s Law"], 
+        correct: 1 
+    }
+];
+
+
+ 
+ const livesEl = document.getElementById('lives');
+ const timerEl = document.getElementById('timer');
+ const questionEl = document.getElementById('question');
+ const answersEl = document.getElementById('answers');
+ const startBtn = document.getElementById('startBtn');
+ const gameOverEl = document.getElementById('gameOver');
+ const refreshBtn = document.createElement('button'); // Create refresh button
+ const quizEl = document.getElementById('quiz');
+ 
+ let currentQuestion = 0;
+ let lives = 3;
+ let timer;
+ let timeLeft = 20;
+ let score = 0; // Initialize player score
+ 
+ // Function to shuffle questions array
+ function shuffleQuestions() {
+     for (let i = quizData.length - 1; i > 0; i--) {
+         const j = Math.floor(Math.random() * (i + 1));
+         [quizData[i], quizData[j]] = [quizData[j], quizData[i]]; // Swap elements
+     }
+ }
+ 
+ function loadQuestion() {
+     if (currentQuestion >= quizData.length) {
+         endGame();
+         return;
+     }
+ 
+     // Show quiz container
+     quizEl.style.display = 'block';
+ 
+     // Load current question
+     const q = quizData[currentQuestion];
+     questionEl.textContent = q.question;
+     answersEl.innerHTML = '';
+     q.options.forEach((option, index) => {
+         const btn = document.createElement('button');
+         btn.textContent = option;
+         btn.className = 'answer';
+         btn.addEventListener('click', () => handleAnswer(index));
+         answersEl.appendChild(btn);
+     });
+ 
+     resetTimer();
+ }
+ 
+ function handleAnswer(selected) {
+     const q = quizData[currentQuestion];
+     if (selected === q.correct) {
+         score++; // Increment score for correct answers
+         currentQuestion++;
+         loadQuestion();
+     } else {
+         lives--;
+         updateLives();
+         if (lives === 0) {
+             endGame();
+         }
+     }
+ }
+ 
+ function updateLives() {
+     livesEl.textContent = `Lives: ${lives}`;
+ }
+ 
+ function resetTimer() {
+     clearInterval(timer);
+     timeLeft = 20;
+     timerEl.textContent = `Time: ${timeLeft}`;
+     timer = setInterval(() => {
+         timeLeft--;
+         timerEl.textContent = `Time: ${timeLeft}`;
+         if (timeLeft === 0) {
+             lives--;
+             updateLives();
+             if (lives === 0) {
+                 endGame();
+             } else {
+                 currentQuestion++;
+                 loadQuestion();
+             }
+         }
+     }, 1000);
+ }
+ 
+ function endGame() {
+     clearInterval(timer);
+ 
+     // Hide game elements
+     questionEl.style.display = 'none';
+     answersEl.style.display = 'none';
+     livesEl.style.display = 'none';
+     timerEl.style.display = 'none';
+ 
+     // Display game over message and score
+     gameOverEl.style.display = 'block';
+     gameOverEl.textContent = `Your score is ${score}.`;
+ 
+     // Show refresh button
+     refreshBtn.textContent = "Play Again";
+     refreshBtn.className = 'start-btn';
+     refreshBtn.style.marginTop = '20px';
+     gameOverEl.appendChild(refreshBtn);
+ 
+     // Refresh the page when button is clicked
+     refreshBtn.addEventListener('click', () => {
+         location.reload();
+     });
+ }
+ 
+ // Start Button Click
+ startBtn.addEventListener('click', () => {
+     shuffleQuestions(); // Shuffle questions at the start
+     startBtn.style.display = 'none';
+     loadQuestion();
+ });
+ </script>
+ 
+
+</body>
+</html>

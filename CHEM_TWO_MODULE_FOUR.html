@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="QUIZ_BEE_TEMPLATE_WITH_IMAGE _NO_TIMER.css">
+    <link rel="icon" href="LOGO_THREE_STEM_SOCIETY.png">
+    <title>UC STEM SOCIETY</title>
+</head>
+<body>
+
+<section class="SECTION_ONE">  
+
+<div class="SECTION_ONE_INTRODUCTORY">
+<h1>
+    MODULE 4: Colligative Propertie
+</h1>
+
+<P>
+    <b>INSTRUCTION:</b>
+    Select the correct answer for each question. You have 3 lives to complete the quiz. If you choose the wrong answer or run out of time, you will lose a life. Once all your lives are gone, the quiz will end. Good luck!
+</P>
+
+<a href="STEM_SOC_CHEMISTRY.HTML">GO BACK</a>
+</div>
+
+<div class="quiz-container">
+    <div id="quiz" style="display: none;">
+        <div id="lives" class="lives">Lives: 3</div>
+
+        <!-- PUT YOUR IMAGE QUESTION HERE -->
+
+            <!-- IMAGE 1 -->
+            <img id="questionImage" class="question-image" src="#" alt="Question Image 1" style="display: none; max-width: 50%; height: auto; text-align: center;">
+            
+            <!-- IMAGE 2 -->
+            <img id="questionImage" class="question-image" src="#" alt="Question Image 2" style="display: none; max-width: 100%; height: auto;">
+       
+        <!-- PUT YOUR IMAGE QUESTION HERE -->
+
+        <div id="question" class="question">Press Start to Begin</div>
+        <div id="answers" class="answers"></div>
+    </div>
+    <button id="startBtn" class="start-btn">Start</button>
+    <div id="gameOver" class="game-over" style="display: none;">Game Over! Refresh to play again.</div>
+</div>
+
+</section>
+
+<script>
+   const quizData = [
+        { 
+            question: "PUT YOUR QUESTION HERE", 
+            image: "QUESTION IMAGE 1", 
+            options: ["OPTION 1", "OPTION 2", "OPTION 3", "OPTION 4"], 
+            correct: 1 
+        },
+        { 
+            question: "PUT YOUR QUESTION HERE", 
+            image: "QUESTION IMAGE 2", 
+            options: ["OPTION 1", "OPTION 2", "OPTION 3", "OPTION 4"], 
+            correct: 0 
+        }
+    ];
+
+    const livesEl = document.getElementById('lives');
+    const timerEl = document.getElementById('timer');
+    const questionEl = document.getElementById('question');
+    const answersEl = document.getElementById('answers');
+    const startBtn = document.getElementById('startBtn');
+    const gameOverEl = document.getElementById('gameOver');
+    const refreshBtn = document.createElement('button');
+    const quizEl = document.getElementById('quiz');
+    const questionImageEl = document.getElementById('questionImage');
+
+    let currentQuestion = 0;
+    let lives = 3;
+    let timer;
+    let timeLeft = 10;
+    let score = 0;
+
+    function shuffleQuestions() {
+        for (let i = quizData.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [quizData[i], quizData[j]] = [quizData[j], quizData[i]];
+        }
+    }
+
+    function loadQuestion() {
+        if (currentQuestion >= quizData.length) {
+            endGame();
+            return;
+        }
+
+        quizEl.style.display = 'block';
+        const q = quizData[currentQuestion];
+        questionEl.textContent = q.question;
+        answersEl.innerHTML = '';
+
+        if (q.image) {
+            questionImageEl.src = q.image;
+            questionImageEl.style.display = 'block';
+        } else {
+            questionImageEl.style.display = 'none';
+        }
+
+        q.options.forEach((option, index) => {
+            const btn = document.createElement('button');
+            btn.textContent = option;
+            btn.className = 'answer';
+            btn.addEventListener('click', () => handleAnswer(index));
+            answersEl.appendChild(btn);
+        });
+
+        resetTimer();
+    }
+
+    function handleAnswer(selected) {
+        const q = quizData[currentQuestion];
+        if (selected === q.correct) {
+            score++;
+            currentQuestion++;
+            loadQuestion();
+        } else {
+            lives--;
+            updateLives();
+            if (lives === 0) {
+                endGame();
+            }
+        }
+    }
+
+    function updateLives() {
+        livesEl.textContent = `Lives: ${lives}`;
+    }
+
+    function resetTimer() {
+        clearInterval(timer);
+        timeLeft = 10;
+        timerEl.textContent = `Time: ${timeLeft}`;
+        timer = setInterval(() => {
+            timeLeft--;
+            timerEl.textContent = `Time: ${timeLeft}`;
+            if (timeLeft === 0) {
+                lives--;
+                updateLives();
+                if (lives === 0) {
+                    endGame();
+                } else {
+                    currentQuestion++;
+                    loadQuestion();
+                }
+            }
+        }, 1000);
+    }
+
+    function endGame() {
+    clearInterval(timer); // Stop the timer
+
+    // Hide all quiz elements
+    quizEl.style.display = 'none';
+
+    // Show game over message
+    gameOverEl.style.display = 'block';
+    gameOverEl.textContent = `Your score is ${score}.`;
+
+    // Add "Play Again" button
+    refreshBtn.textContent = "Play Again";
+    refreshBtn.className = 'start-btn';
+    refreshBtn.style.marginTop = '20px';
+
+    // Append button only if it's not already there
+    if (!gameOverEl.contains(refreshBtn)) {
+        gameOverEl.appendChild(refreshBtn);
+    }
+
+    refreshBtn.addEventListener('click', () => {
+        location.reload(); // Restart the game
+    });
+}
+
+    startBtn.addEventListener('click', () => {
+        shuffleQuestions();
+        startBtn.style.display = 'none';
+        loadQuestion();
+    });
+</script>
+
+</body>
+</html>
